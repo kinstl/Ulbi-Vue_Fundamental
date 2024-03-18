@@ -71,7 +71,6 @@ export const postModule = {
       }
     },
     async loadMorePosts({ state, commit }) {
-      console.log("loaded");
       try {
         commit("setPage", state.page + 1);
         const response = await axios.get(

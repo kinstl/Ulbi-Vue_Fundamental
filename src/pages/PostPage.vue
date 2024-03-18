@@ -10,7 +10,7 @@
     />
     <div class="app__btns">
       <my-button @click="showDialog" style="margin: 15px 0">
-        Создать пользователя
+        Создать пост
       </my-button>
       <my-select
         :model-value="selectedSort"
@@ -27,11 +27,18 @@
       v-if="!isPostsLoading"
     />
     <div v-else>Идет загрузка...</div>
-    <div
-      v-if="isPostsLoadedEnough"
-      v-intersection="loadMorePosts"
-      class="observer"
-    ></div>
+    <!-- <div v-intersection="loadMorePosts" class="observer"></div> -->
+    <div class="page__wrapper">
+      <div
+        v-for="pageNumber in totalPages"
+        :key="pageNumber"
+        class="page"
+        :class="{ 'current-page': page === pageNumber }"
+        @click="changePage(pageNumber)"
+      >
+        {{ pageNumber }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -71,6 +78,9 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
+    changePage(pageNumber) {
+      this.setPage(pageNumber);
+    },
   },
   mounted() {
     this.fetchPosts();
@@ -90,8 +100,10 @@ export default {
       sortedPosts: "post/sortedPosts",
       sortedAndSearchedPosts: "post/sortedAndSearchedPosts",
     }),
-    isPostsLoadedEnough() {
-      return this.posts.length >= 10;
+  },
+  watch: {
+    page() {
+      this.fetchPosts();
     },
   },
 };

@@ -6,10 +6,12 @@
       <my-button style="margin-left: 20px" @click="$router.push('/about')"
         >О сайте</my-button
       >
-      <my-button style="margin-left: 20px" @click="navigatePage('/posts')"
+      <my-button style="margin-left: 20px" @click="navigatePostPage('/posts')"
         >Посты на Option API</my-button
       >
-      <my-button style="margin-left: 20px" @click="navigatePage('/composition')"
+      <my-button
+        style="margin-left: 20px"
+        @click="navigatePostPage('/composition')"
         >Посты на Composition API</my-button
       >
     </div>
@@ -21,11 +23,11 @@ import { mapMutations } from "vuex";
 export default {
   methods: {
     ...mapMutations({
-      setPosts: "post/setPosts",
+      setPage: "post/setPage",
     }),
-    navigatePage(path) {
+    navigatePostPage(path) {
+      this.setPage(1);
       this.$router.push(path);
-      this.setPosts([]);
     },
   },
 };

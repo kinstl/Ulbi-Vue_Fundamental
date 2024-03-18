@@ -10,7 +10,7 @@
     />
     <div class="app__btns">
       <my-button @click="showDialog" style="margin: 15px 0">
-        Создать пользователя
+        Создать пост
       </my-button>
       <my-select
         :model-value="selectedSort"
@@ -27,11 +27,7 @@
       v-if="!isPostsLoading"
     />
     <div v-else>Идет загрузка...</div>
-    <div
-      v-if="isPostsLoadedEnough"
-      v-intersection="loadMorePosts"
-      class="observer"
-    ></div>
+    <div v-intersection="loadMorePosts" class="observer"></div>
   </div>
 </template>
 
@@ -74,9 +70,11 @@ export default {
         posts.value.filter((p) => p.id !== post.id)
       );
     };
-    const loadMorePosts = () => store.dispatch("post/loadMorePosts");
-    const isPostsLoadedEnough = () => {
-      return this.posts.length >= 10;
+
+    const loadMorePosts = () => {
+      if (!isPostsLoading.value) {
+        store.dispatch("post/loadMorePosts");
+      }
     };
 
     store.dispatch("post/fetchPosts");
@@ -95,7 +93,6 @@ export default {
       createPost,
       removePost,
       loadMorePosts,
-      isPostsLoadedEnough,
     };
   },
 };
