@@ -3,15 +3,15 @@
     <div>Vue 3</div>
     <div class="navbar__btns">
       <my-button @click="$router.push('/')">Главная</my-button>
-      <my-button style="margin-left: 20px" @click="$router.push('/about')"
+      <my-button style="margin-left: 20px" @click="$router.push('about')"
         >О сайте</my-button
       >
-      <my-button style="margin-left: 20px" @click="navigatePostPage('/posts')"
+      <my-button style="margin-left: 20px" @click="navigatePostPage('posts')"
         >Посты на Option API</my-button
       >
       <my-button
         style="margin-left: 20px"
-        @click="navigatePostPage('/composition')"
+        @click="navigatePostPage('composition')"
         >Посты на Composition API</my-button
       >
     </div>
